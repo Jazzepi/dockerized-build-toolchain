@@ -5,7 +5,7 @@ ENV LANG en_US.UTF-8
 ENV JAVA_HOME=/usr/lib/jvm/java-8-oracle
 
 #This isn't best practice. You should pin each one of these dependencies.
-RUN apt-get update && apt-get -y install ca-certificates maven curl git xvfb wget chromium-browser build-essential software-properties-common
+RUN apt-get update && apt-get -y install ca-certificates maven curl git xvfb wget chromium-browser build-essential software-properties-common libxi6 libgconf-2-4
 
 # Install Java.
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \

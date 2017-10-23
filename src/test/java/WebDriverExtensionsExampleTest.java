@@ -10,14 +10,12 @@ import static com.github.webdriverextensions.Bot.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 @RunWith(WebDriverRunner.class)
-@Firefox
 @Chrome
-@InternetExplorer
 public class WebDriverExtensionsExampleTest {
 
     @FindBy(name = "q")
     private WebElement queryInput;
-    @FindBy(name = "btnG")
+    @FindBy(name = "btnK")
     private WebElement searchButton;
     @FindBy(id = "search")
     private WebElement searchResult;
@@ -28,7 +26,7 @@ public class WebDriverExtensionsExampleTest {
         assertCurrentUrlContains("google");
 
         type("Hello World", queryInput);
-        click(searchButton);
+        pressEnter(queryInput);
 
         waitFor(3, SECONDS);
         assertTextContains("Hello World", searchResult);

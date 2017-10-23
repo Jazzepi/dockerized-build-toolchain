@@ -46,20 +46,8 @@
                 <configuration>
                     <drivers>
                         <driver>
-                            <name>edgedriver</name>
-                            <version>4.15063</version>
-                        </driver>
-                        <driver>
-                            <name>internetexplorerdriver</name>
-                            <version>3.4.0</version>
-                        </driver>
-                        <driver>
                             <name>chromedriver</name>
                             <version>2.29</version>
-                        </driver>
-                        <driver>
-                            <name>geckodriver</name>
-                            <version>0.16.0</version>
                         </driver>
                     </drivers>
                 </configuration>

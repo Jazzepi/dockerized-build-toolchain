@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# DEFAULTS may be overridden by calling environment.
+ENV_SH_FILE="env.sh"
+
+err() {
+  echo -e "${@}" >&2
+}
+
+lookup() {
+  local file="${1}"
+  local curr_path="${2}"
+  [[ -z "${curr_path}" ]] && curr_path="${PWD}"
+
+  # Search recursively upwards for file.
+  until [[ "${curr_path}" == "/" ]]; do
+    if [[ -e "${curr_path}/${file}" ]]; then
+      echo "${curr_path}/${file}"
+      break
+    else
+      curr_path=$(dirname "${curr_path}")
+    fi
+  done
+}
+
+execute_with_env_sh() {
+  local env_sh_file_path=$(lookup "${ENV_SH_FILE}")
+
+  if [[ -n "${env_sh_file_path}" ]]; then
+    cd "$(dirname "${env_sh_file_path}")"
+  else
+    err "Unable to find a ${ENV_SH_FILE} file, bailing out."
+  fi
+
+  # Say what we are gonna do, then do it.
+  err "Using '${env_sh_file_path}' to run your command:\n"
+  "${env_sh_file_path}" "$@"
+}
+
+export PWD_FOR_COMMAND=$(pwd)
+set -e
+execute_with_env_sh "$@"
+exit $?

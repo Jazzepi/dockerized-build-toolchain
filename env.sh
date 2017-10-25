@@ -24,7 +24,6 @@ docker run \
     -e MAVEN_CONFIG=${HOME}/.m2 \
     -e TERM=${TERM} `#Preserves your terminal settings inside the container. Keeps less, top, and nano from complaining` \
     --workdir=$(pwd) `#Run our command inside the docker at the same directory we are invoking the command from` \
-    -e DOCKER_URL=unix:///var/run/docker.sock `#Make sure we are using the directory based socket inside the container` \
     --volume=/tmp/.X11-unix:/tmp/.X11-unix `#Share the same X-server socket as the Docker as our host has. Allows GUIs to write to our display` \
     -e DISPLAY=$DISPLAY `#Share the same X11 display as the Docker as our host has. Allows GUIS to write to our display.` \
     --volume=/etc/passwd:/etc/passwd `#Get the same passwords, users, and groups as our docker as our host. Allows us to be ourselves inside the container.` \

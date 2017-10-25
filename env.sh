@@ -7,12 +7,12 @@ function readversion {
     -t -v '/m:project/m:version' -
 }
 
-GITROOT=$(git rev-parse --show-toplevel)
-VERSION=$(readversion)
-GROUP_ADDS=$(for group in $(id --groups); do echo "--group-add=${group}"; done)
 if [[ -n $PWD_FOR_COMMAND ]]; then
   cd $PWD_FOR_COMMAND
 fi
+GITROOT=$(git rev-parse --show-toplevel)
+VERSION=$(readversion)
+GROUP_ADDS=$(for group in $(id --groups); do echo "--group-add=${group}"; done)
 
 #NOTE: You need to have your id in the 'docker' group to mount the docker.sock. You can do that with the below command.
 #sudo usermod -a -G docker $USER

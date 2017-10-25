@@ -38,6 +38,5 @@ execute_with_env_sh() {
 }
 
 export PWD_FOR_COMMAND=$(pwd)
-set -e
 execute_with_env_sh "$@"
 exit $?

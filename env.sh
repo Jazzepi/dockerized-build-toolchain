@@ -19,10 +19,10 @@ GROUP_ADDS=$(for group in $(id --groups); do echo "--group-add=${group}"; done)
 docker run \
     --rm=true `#Trash the container after we are done running it. We never want to use this container again.` \
     --net=host `#Share the same network as our host` \
-    --user=$(id -u):$(id -g) -it \
-            `#Be ourselves inside the container, not root` \
+    --user=$(id -u):$(id -g) `#Be ourselves inside the container, not root` \
     -e MAVEN_CONFIG=${HOME}/.m2 \
     -e TERM=${TERM} `#Preserves your terminal settings inside the container. Keeps less, top, and nano from complaining` \
+    -it `#Connect standard in/out to our terminal and a TTY in case we need to input something.` \
     --workdir=$(pwd) `#Run our command inside the docker at the same directory we are invoking the command from` \
     --volume=/tmp/.X11-unix:/tmp/.X11-unix `#Share the same X-server socket as the Docker as our host has. Allows GUIs to write to our display` \
     -e DISPLAY=$DISPLAY `#Share the same X11 display as the Docker as our host has. Allows GUIS to write to our display.` \

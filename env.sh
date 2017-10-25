@@ -26,12 +26,11 @@ docker run \
     -e TERM=${TERM} `#Preserves your terminal settings inside the container. Keeps less, top, and nano from complaining` \
     --workdir=$(pwd) `#Run our command inside the docker at the same directory we are invoking the command from` \
     -e DOCKER_URL=unix:///var/run/docker.sock `#Make sure we are using the directory based socket inside the container` \
-    -e DOCKER_API_VERSION=1.23 \
-    -e DISPLAY=unix$DISPLAY \
-    --volume=/etc/passwd:/etc/passwd `#Get the same passwords, users, and groups in our docker as our host. Allows us to be ourselves inside the container.` \
+    --volume=/tmp/.X11-unix:/tmp/.X11-unix `#Share the same X-server socket as the Docker as our host has. Allows GUIs to write to our display` \
+    -e DISPLAY=$DISPLAY `#Share the same X11 display as the Docker as our host has. Allows GUIS to write to our display.` \
+    --volume=/etc/passwd:/etc/passwd `#Get the same passwords, users, and groups as our docker as our host. Allows us to be ourselves inside the container.` \
     --volume=/etc/group:/etc/group \
     $GROUP_ADDS \
-    --volume=/tmp/.X11-unix:/tmp/.X11-unix \
     --volume=/var/run/docker.sock:/var/run/docker.sock `#And mount the socket on our host inside the container. This way if we are using Docker inside of our build environment it will create containers. That are siblings of this container, not children. Dockers inside of Dockers does have a whole host of issues.` \
     --volume=/etc/localtime:/etc/localtime `#Share the timezone with our host` \
     --volume=/etc/timezone:/etc/timezone \

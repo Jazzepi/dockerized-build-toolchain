@@ -21,7 +21,6 @@ docker run \
     --net=host `#Share the same network as our host` \
     --user=$(id -u):$(id -g) -it \
             `#Be ourselves inside the container, not root` \
-    -e USER=${USER} \
     -e MAVEN_CONFIG=${HOME}/.m2 \
     -e TERM=${TERM} `#Preserves your terminal settings inside the container. Keeps less, top, and nano from complaining` \
     --workdir=$(pwd) `#Run our command inside the docker at the same directory we are invoking the command from` \
